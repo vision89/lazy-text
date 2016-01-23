@@ -17,26 +17,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../../web-component-tester/browser.js"></script>
 
     <!-- Step 1: import the element to test -->
-    <link rel="import" href="../lazy-type.html">
+    <link rel="import" href="../lazy-text.html">
   </head>
   <body>
 
     <!-- You can use the document as a place to set up your fixtures. -->
-    <test-fixture id="lazy-type-fixture">
+    <test-fixture id="lazy-text-fixture">
       <template>
-        <lazy-type id="lazy" text="[[text]]" timing="[[timing]]" cursorTiming="[[cursorTiming]]" 
-        showCursor="[[showCursor]]"></lazy-type>
+        <lazy-text id="lazy" text="[[text]]" timing="[[timing]]" cursorTiming="[[cursorTiming]]" 
+        showCursor="[[showCursor]]"></lazy-text>
       </template>
     </test-fixture>
 
     <script>
-      suite('<lazy-type>', function() {
+      suite('<lazy-text>', function() {
 
         var myEl;
 
         setup(function() {
           
-          myEl = fixture('lazy-type-fixture');
+          myEl = fixture('lazy-text-fixture');
           myEl.text = "Hello!";
           myEl.timing = 600;
           myEl.cursorTiming = 500;

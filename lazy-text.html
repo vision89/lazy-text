@@ -15,24 +15,24 @@ An element which will slowly show text like it is being typed.  Optionally it wi
 
 Example:
 
-    <lazy-type text="Hello World"></lazy-type>
+    <lazy-text text="Hello World"></lazy-text>
 
 Example:
 
-    <lazy-type text="Hello World" timing="600" cursorTiming="500" showCursor="true"></lazy-type>
+    <lazy-text text="Hello World" timing="600" cursorTiming="500" showCursor="true"></lazy-text>
 
 @demo demo/index.html
 @hero hero.svg
 -->
 
-<dom-module id="lazy-type">
+<dom-module id="lazy-text">
   <template>
     <style>
       :host {
         display: block;
         box-sizing: border-box;
         
-        @apply(--lazy-type-theme);
+        @apply(--lazy-text-theme);
         
       }
     </style>
@@ -49,7 +49,7 @@ Example:
       var interval;
       
       Polymer({
-        is: 'lazy-type',
+        is: 'lazy-text',
   
         properties: {
           

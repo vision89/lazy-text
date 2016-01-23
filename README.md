@@ -4,11 +4,11 @@ An element which will slowly show text like it is being typed.  Optionally it wi
 
 # Example
 
-    <lazy-type text="Hello World"></lazy-type>
+    <lazy-text text="Hello World"></lazy-text>
 
 # Demo and documentation
 
-  http://vision89.github.io/lazy-type/components/lazy-type/
+  http://vision89.github.io/lazy-type/components/lazy-text/
 
 # License
 

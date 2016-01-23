@@ -1,6 +1,6 @@
 {
-  "name": "lazy-type",
-  "version": "1.0.0",
+  "name": "lazy-text",
+  "version": "1.0.1",
   "authors": [
     "Dustin Gulley <dlgulley411@gmail.com>"
   ],
@@ -10,7 +10,7 @@
     "polymer",
     "seed"
   ],
-  "main": "lazy-type.html",
+  "main": "lazy-text.html",
   "license": "http://polymer.github.io/LICENSE.txt",
   "homepage": "https://github.com/<USERNAME>/seed-element/",
   "ignore": [
