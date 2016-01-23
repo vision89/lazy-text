@@ -1,8 +1,8 @@
 {
   "name": "lazy-type",
-  "version": "1.0.7",
+  "version": "1.0.0",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Dustin Gulley <dlgulley411@gmail.com>"
   ],
   "description": "An element providing a solution to no problem in particular.",
   "keywords": [
