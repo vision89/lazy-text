@@ -1,4 +1,4 @@
-# lazy-type
+# lazy-text
 
 An element which will slowly show text like it is being typed.  Optionally it will show a cursor.
 
@@ -8,7 +8,7 @@ An element which will slowly show text like it is being typed.  Optionally it wi
 
 # Demo and documentation
 
-  http://vision89.github.io/lazy-type/components/lazy-text/
+  http://vision89.github.io/lazy-text/components/lazy-text/
 
 # License
 
