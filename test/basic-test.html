@@ -1,0 +1,143 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../lazy-type.html">
+  </head>
+  <body>
+
+    <!-- You can use the document as a place to set up your fixtures. -->
+    <test-fixture id="lazy-type-fixture">
+      <template>
+        <lazy-type id="lazy" text="[[text]]" timing="[[timing]]" cursorTiming="[[cursorTiming]]" 
+        showCursor="[[showCursor]]"></lazy-type>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<lazy-type>', function() {
+
+        var myEl;
+
+        setup(function() {
+          
+          myEl = fixture('lazy-type-fixture');
+          myEl.text = "Hello!";
+          myEl.timing = 600;
+          myEl.cursorTiming = 500;
+          myEl.showCursor = true;
+          
+        });
+
+        test('Make sure _text is set', function( done ) {
+          
+          myEl.begin();
+          
+          setTimeout(function () {
+            
+            var inEl = Polymer.dom(myEl.root).querySelector('#text');
+            
+            assert.equal( inEl.innerHTML, myEl.text );
+            
+            return done();
+            
+          }, 4200);
+          
+        });
+        
+        test('Make sure timing is working', function( done ) {
+          
+          var counter = 1;
+          
+          var inEl = Polymer.dom(myEl.root).querySelector('#text');
+          
+          myEl.begin();
+          
+          var interval = setInterval( function () {
+            
+            if ( counter === myEl.text.length ) {
+              
+              assert.equal( inEl.innerHTML, myEl.text );
+              
+              clearInterval( interval );
+              
+              return done();
+              
+            } else {
+              
+              var holder = counter;
+              
+              ++counter;
+              
+              assert.equal( inEl.innerHTML, myEl.text.substring(0, holder) );
+              
+            }
+          
+          }, (myEl.timing + 1) );
+          
+        });
+        
+        test('Make sure begin clears out old text', function( done ) {
+          
+          myEl.begin();
+          
+          setTimeout(function () {
+            
+            var inEl = Polymer.dom(myEl.root).querySelector('#text');
+            
+            assert.equal( inEl.innerHTML, myEl.text );
+            
+            myEl.begin();
+            
+            setTimeout(function () {
+            
+              var inEl = Polymer.dom(myEl.root).querySelector('#text');
+              
+              assert.equal( inEl.innerHTML, myEl.text );
+              
+              return done();
+              
+            }, 4200);
+            
+          }, 4200);
+          
+        });
+        
+        test('Make sure the cursor is visible', function() {
+          
+          var inEl = Polymer.dom(myEl.root).querySelector('#cursor');
+          
+          assert.equal( inEl.hidden, false);
+          
+        });
+        
+        test('Make sure the cursor is invisible', function() {
+          
+          myEl.showCursor = false;
+          
+          var inEl = Polymer.dom(myEl.root).querySelector('#cursor');
+          
+          assert.equal( inEl.hidden, true );
+          
+        });
+
+      });
+    </script>
+
+  </body>
+</html>
