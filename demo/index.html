@@ -40,7 +40,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       
       <br />
       
-      <lazy-text id="lazytext" text="[[text]]"></lazy-text>
+      <lazy-text id="lazytext" on-text-typed="finished" text="[[text]]"></lazy-text>
+      
+      <br />
+      
+      <span hidden$="[[hideIt]]" >Done Typin!</span>
       
     </template>
 
@@ -51,12 +55,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         window.addEventListener('WebComponentsReady', function() {
           
           var app = document.querySelector('#app');
+          
+          app.hideIt = true;
+          
+          app.finished = function () {
+            
+            app.hideIt = false;
+            
+          };
 
           app.text = 'Input some text';
           
           app.$.lazytext.begin();
           
           window.setText = function () {
+            
+            app.hideIt = true;
             
             var elm = document.getElementById('inputtext');
             

@@ -189,6 +189,8 @@ Example:
             index++;
             
             if ( that._text.length === that.text.length ) {
+              
+              that.fire( 'text-typed' );  
                 
               clearInterval( interval );
                 

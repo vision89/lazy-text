@@ -16,3 +16,6 @@ An element which will slowly show text like it is being typed.  Optionally it wi
   
 # Styles
   You can update the style of this element using the --lazy-text-theme mixin
+  
+# Events
+  Fires a 'text-typed' event when it's finished typing the text

@@ -135,6 +135,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           assert.equal( inEl.hidden, true );
           
         });
+        
+        test('Make sure the event fires', function ( done ) {
+          
+          myEl.addEventListener( 'text-typed', function () {
+            
+            assert.equal( true, true );
+            
+            return done();
+            
+          });
+          
+          myEl.begin();
+          
+        });
 
       });
     </script>
