@@ -40,7 +40,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       
       <br />
       
-      <lazy-text id="lazytext" on-text-typed="finished" text="[[text]]"></lazy-text>
+      <lazy-text id="lazytext" on-text-typed="finished" show-cursor="[[cursor]]" text="[[text]]"></lazy-text>
       
       <br />
       
@@ -55,6 +55,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         window.addEventListener('WebComponentsReady', function() {
           
           var app = document.querySelector('#app');
+          
+          app.cursor = true;
           
           app.hideIt = true;
           

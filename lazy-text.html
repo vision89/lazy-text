@@ -207,6 +207,13 @@ Example:
           
           this.$.cursor.hidden = !this.showCursor;
           
+          if ( this.$.cursor.hidden === true && cursorInterval !== undefined && 
+          cursorInterval !== null ) {
+            
+            clearInterval( cursorInterval );
+            
+          }
+          
         }
         
       });
