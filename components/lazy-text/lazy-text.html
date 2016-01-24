@@ -1,0 +1,224 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element which will slowly show text like it is being typed.  Optionally it will show a cursor.
+
+Example:
+
+    <lazy-text text="Hello World"></lazy-text>
+
+Example:
+
+    <lazy-text text="Hello World" timing="600" cursor-timing="500" show-cursor="true"></lazy-text>
+
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="lazy-text">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        
+        @apply(--lazy-text-theme);
+        
+      }
+    </style>
+    
+    <span id="text" class="type">[[_text]]</span><span id="cursor">|</span>
+    
+  </template>
+
+  <script>
+  
+    ( function () {
+      
+      var cursorInterval;
+      var interval;
+      
+      Polymer({
+        is: 'lazy-text',
+  
+        properties: {
+          
+          /**
+           * Text that will eventually be displayed
+           */ 
+          text: {
+            type: String,
+            value: '',
+            notify: false,
+            reflectToAttribute: false
+          },
+          
+          /**
+           * Time between each letter
+           */ 
+          timing: {
+            
+            type: Number,
+            value: 600,
+            notify: false,
+            reflectToAttribute: false
+            
+          },
+          
+          /**
+           * Timer for cursor
+           */ 
+          cursorTiming: {
+            
+            type: Number,
+            value: 500,
+            notify: false,
+            reflectToAttribute: false
+            
+          },
+          
+          /**
+           * Should we show the cursor?
+           */ 
+          showCursor: {
+            
+            type: Boolean,
+            value: true,
+            notify: false,
+            reflectToAttribute: false,
+            observer: '_updateCursor'
+            
+          },
+          
+          /**
+           * Used internally to hold the text as its being typed
+           */ 
+          _text: {
+            
+            type:String,
+            value: '',
+            notify: false,
+            reflectToAttribute: false
+            
+          }
+  
+        },
+  
+        // Element Lifecycle
+  
+        ready: function() {
+          // `ready` is called after all elements have been configured, but
+          // propagates bottom-up. This element's children are ready, but parents
+          // are not.
+          //
+          // This is the point where you should make modifications to the DOM (when
+          // necessary), or kick off any processes the element wants to perform.
+        },
+  
+        attached: function() {
+          // `attached` fires once the element and its parents have been inserted
+          // into a document.
+          //
+          // This is a good place to perform any work related to your element's
+          // visual state or active behavior (measuring sizes, beginning animations,
+          // loading resources, etc).
+          
+          if ( this.showCursor === true ) {
+            
+            var that = this;
+            
+            cursorInterval = setInterval( function () {
+              
+              that.$.cursor.hidden = !that.$.cursor.hidden;
+              
+            }, that.cursorTiming );
+            
+          } else {
+            
+            this.$.cursor.hidden = true;
+            
+          }
+          
+        },
+  
+        detached: function() {
+          // The analog to `attached`, `detached` fires when the element has been
+          // removed from a document.
+          //
+          // Use this to clean up anything you did in `attached`.
+          
+          if ( interval !== undefined && interval !== null ) {
+            
+            clearInterval( interval );
+            
+          }
+          
+          if ( cursorInterval !== undefined && cursorInterval !== null ) {
+            
+            clearInterval( cursorInterval );
+            
+          }
+          
+        },
+        
+        /**
+         * Show the text
+         */ 
+        begin: function () {
+          
+          var that = this;
+          
+          that._text = '';
+          
+          var index = 0;
+          
+          interval = setInterval( function () {
+            
+            that._text += that.text.charAt( index );
+            
+            index++;
+            
+            if ( that._text.length === that.text.length ) {
+              
+              that.fire( 'text-typed' );  
+                
+              clearInterval( interval );
+                
+            }
+            
+          }, that.timing );
+          
+        },
+        
+        /**
+         * Update to show/hide the cursor
+         */ 
+        _updateCursor: function () {
+          
+          this.$.cursor.hidden = !this.showCursor;
+          
+          if ( this.$.cursor.hidden === true && cursorInterval !== undefined && 
+          cursorInterval !== null ) {
+            
+            clearInterval( cursorInterval );
+            
+          }
+          
+        }
+        
+      });
+      
+    })();
+  
+  </script>
+</dom-module>
